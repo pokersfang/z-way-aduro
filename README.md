@@ -80,6 +80,10 @@ Successfully flashed 'THIN_GW_DKNCZ20_Shield_zwave_serial_api_controller_1.0_us_
 
 > **Note:** UART0 is occupied by the CZ20 and cannot be used to flash or debug the ESP32-S3. Flashing and debugging must use the USB Serial/JTAG interface through the board's USB port.
 
+> **Standalone power:** Without a USB host, USB Serial/JTAG input may return immediately. The firmware now waits for a host while keeping Z-Way, Web, Wi-Fi, and Ethernet services running, preventing the previous CLI-exit restart loop. Reconnecting USB restores the CLI.
+
+> **Z-Way ESP Web Tools compatibility:** The Web CLI workflow described in Trident IoT's [Developer-Sandbox](https://github.com/tridentiot/Developer-Sandbox) does not directly apply to this hardware/firmware combination. The current Web Tools terminal cannot use the ESP32-S3 native USB Serial/JTAG console for the CLI, while UART0 is unavailable because it is connected to the CZ20; further Web Tools adaptation may therefore be required. This firmware also uses `I` to display IP/SoftAP information and lowercase `w` to manage Wi-Fi credentials instead of the documented uppercase `W`. The Web interface itself works: hold the Rescue Button during power-on to enter SoftAP mode, connect to that SoftAP, and open `http://<gateway_ip>:8083/`.
+
 ```shell
 # 1. You need to initialize IDF first, as shown in the example below: 
 cd ~/esp-idf; source ./export.sh; cd ~/zway-aduro/upstream/z-way-esp32
