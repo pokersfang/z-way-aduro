@@ -30,6 +30,11 @@ idf.py -DZWAY_CMAKE_SUPPORT_ZMATTER_BRIDGE=OFF -DZWAY_CMAKE_ESP32_DEVICE_VARIANT
 idf.py -DZWAY_CMAKE_SUPPORT_ZMATTER_BRIDGE=OFF -DZWAY_CMAKE_ESP32_DEVICE_VARIANT=prod-xiao build
 ```
 
+### Hardware customization
+
+- Rescue Button: GPIO7, active low. Holding it during power-on forces Wi-Fi SoftAP mode and turns the red LED on.
+- RGB LEDs are active high: R/G/B use GPIO1/GPIO2/GPIO4. Ethernet down or no IP turns the blue LED on; an acquired Ethernet IP turns the green LED on; disconnecting the cable or losing the IP returns to blue.
+
 ## Run
 
 ### T32CZ20 (Z-Wave Controller)
@@ -72,6 +77,8 @@ Successfully flashed 'THIN_GW_DKNCZ20_Shield_zwave_serial_api_controller_1.0_us_
 ```
 
 ### ESP32-S3
+
+> **Note:** UART0 is occupied by the CZ20 and cannot be used to flash or debug the ESP32-S3. Flashing and debugging must use the USB Serial/JTAG interface through the board's USB port.
 
 ```shell
 # 1. You need to initialize IDF first, as shown in the example below: 
